@@ -53,3 +53,19 @@ In addition to the packages specified in the table above, the following packages
 - `bazelisk` / `bazel`
 
 See [Dockerfile](Dockerfile) for the full details of installed packages.
+
+## Legal document generator module
+
+This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_filing` function that accepts case information and outputs a formatted Word document.
+
+Example usage:
+
+```bash
+python3 -m legal_module.example
+```
+
+This requires the optional dependency **python-docx**. Install it with:
+
+```bash
+pip install python-docx
+```
