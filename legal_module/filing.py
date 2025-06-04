@@ -1,5 +1,7 @@
 """Generate Traditional Chinese legal documents using python-docx."""
 
+from __future__ import annotations
+
 from typing import List, Tuple, Union, TypedDict
 from enum import Enum
 
@@ -23,17 +25,15 @@ class CaseInfo(TypedDict, total=False):
     laws: List[str]
     evidence: List[EvidenceEntry]
 
-    filing_type: str  # optional; defaults to ``FilingType.COMPLAINT``
+    filing_type: FilingType | str  # optional; defaults to ``FilingType.COMPLAINT``
 
 try:  # pragma: no cover - optional dependency may be missing
     from docx import Document
     from docx.shared import Pt, Cm
-    from docx.enum.text import WD_LINE_SPACING
 except ImportError:  # pragma: no cover - docx may not be installed
     Document = None
     Pt = None
     Cm = None
-    WD_LINE_SPACING = None
 
 try:  # pragma: no cover - optional dependency
     from docx2pdf import convert as docx2pdf_convert
