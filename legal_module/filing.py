@@ -1,6 +1,7 @@
 """Generate Traditional Chinese legal documents using python-docx."""
 
 from typing import List, Tuple, Union, TypedDict
+from enum import Enum
 
 
 class EvidenceEntry(TypedDict):
@@ -22,6 +23,8 @@ class CaseInfo(TypedDict, total=False):
     laws: List[str]
     evidence: List[EvidenceEntry]
 
+    filing_type: str  # optional; defaults to ``FilingType.COMPLAINT``
+
 try:  # pragma: no cover - optional dependency may be missing
     from docx import Document
     from docx.shared import Pt, Cm
@@ -36,6 +39,30 @@ try:  # pragma: no cover - optional dependency
     from docx2pdf import convert as docx2pdf_convert
 except Exception:  # pragma: no cover - docx2pdf is truly optional
     docx2pdf_convert = None
+
+CHINESE_NUMERALS = {
+    1: "壹",
+    2: "貳",
+    3: "參",
+    4: "肆",
+    5: "伍",
+    6: "陸",
+    7: "柒",
+    8: "捌",
+    9: "玖",
+    10: "拾",
+}
+
+
+class FilingType(str, Enum):
+    """Common filing types."""
+
+    COMPLAINT = "起訴狀"
+    DEFENSE = "答辯狀"
+    APPEAL = "上訴狀"
+    ENFORCEMENT = "強制執行聲請狀"
+    SUPPLEMENT = "補充說明狀"
+    INVESTIGATION = "調查證據聲請狀"
 
 class LegalDocumentGenerator:
     """Generate legal filings in Traditional Chinese."""
@@ -59,12 +86,30 @@ class LegalDocumentGenerator:
             section.right_margin = Cm(2.5)
 
     def build(self) -> None:
-        self.doc.add_heading(self.case_info.get('title', '起訴狀'), level=1)
+        title = self.case_info.get("filing_type") or self.case_info.get("title")
+        if not title:
+            title = FilingType.COMPLAINT.value
+        self.doc.add_heading(str(title), level=1)
         self._add_basic_info()
-        self._add_claims()
-        self._add_facts()
-        self._add_laws()
-        self._add_evidence()
+        for idx, section in enumerate(
+            [
+                ("訴之聲明", self.case_info.get("claims", "")),
+                ("事實與理由", self.case_info.get("facts", "")),
+                ("法律依據", self.case_info.get("laws", [])),
+                ("證據目錄", self.case_info.get("evidence", [])),
+            ],
+            start=1,
+        ):
+            label = CHINESE_NUMERALS.get(idx, str(idx)) + "、" + section[0]
+            self.doc.add_paragraph(label)
+            if section[0] == "法律依據":
+                for law in section[1]:
+                    self.doc.add_paragraph(f"• {law}")
+            elif section[0] == "證據目錄":
+                for ev in section[1]:
+                    self.doc.add_paragraph(f"【{ev['id']}】{ev['summary']}")
+            else:
+                self.doc.add_paragraph(section[1])
 
     def save(self, filepath: str) -> None:
         self.doc.save(filepath)
@@ -75,23 +120,6 @@ class LegalDocumentGenerator:
         self.doc.add_paragraph(f"當事人：{self.case_info.get('parties', '')}")
         self.doc.add_paragraph(f"法院：{self.case_info.get('court', '')}")
 
-    def _add_claims(self) -> None:
-        self.doc.add_paragraph("壹、訴之聲明")
-        self.doc.add_paragraph(self.case_info.get('claims', ''))
-
-    def _add_facts(self) -> None:
-        self.doc.add_paragraph("貳、事實與理由")
-        self.doc.add_paragraph(self.case_info.get('facts', ''))
-
-    def _add_laws(self) -> None:
-        self.doc.add_paragraph("參、法律依據")
-        for law in self.case_info.get('laws', []):
-            self.doc.add_paragraph(f"• {law}")
-
-    def _add_evidence(self) -> None:
-        self.doc.add_paragraph("肆、證據目錄")
-        for ev in self.case_info.get('evidence', []):
-            self.doc.add_paragraph(f"【{ev['id']}】{ev['summary']}")
 
 
 def create_legal_filing(

@@ -1,11 +1,12 @@
 """Example usage of the legal filing generator."""
 
-from .filing import create_legal_filing
+from .filing import create_legal_filing, FilingType
 
 sample_case = {
     'case_number': '臺北地方法院114年度訴字第1234號',
     'parties': '原告：李灃祐  被告：新鑫公司',
     'court': '臺灣臺北地方法院',
+    'filing_type': FilingType.COMPLAINT.value,
     'claims': '請求確認本票債權不存在，並請求返還不當得利新台幣1,000,000元。',
     'facts': '原告與被告簽署車輛分期契約，惟車輛自始未交付，卻遭告提出票據裁定……',
     'laws': ['民法第184條', '票據法第17條', '最高法院111年度台上字第3208號判決'],

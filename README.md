@@ -56,7 +56,7 @@ See [Dockerfile](Dockerfile) for the full details of installed packages.
 
 ## Legal document generator module
 
-This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_legal_filing` function that accepts case information and outputs a formatted Word document. The document is formatted with a 2.5 cm margin and 1.5x line spacing.
+This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_legal_filing` function that accepts case information and outputs a formatted Word document. Documents use 2.5 cm margins, 1.5× line spacing and the 標楷體 font. Section numbers are automatically labeled with Chinese numerals.
 
 Example usage:
 
@@ -72,4 +72,5 @@ pip install python-docx docx2pdf
 
 The function returns the path to the generated Word document. When
 ``export_pdf=True`` and ``docx2pdf`` is installed, it returns a tuple with the
-Word and PDF paths.
+Word and PDF paths. A ``FilingType`` enumeration is provided for convenience
+when specifying the desired document style.
