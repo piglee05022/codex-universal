@@ -56,7 +56,7 @@ See [Dockerfile](Dockerfile) for the full details of installed packages.
 
 ## Legal document generator module
 
-This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_filing` function that accepts case information and outputs a formatted Word document.
+This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_filing` function that accepts case information and outputs a formatted Word document. If `docx2pdf` is installed, the document can also be exported to PDF.
 
 Example usage:
 
@@ -64,8 +64,8 @@ Example usage:
 python3 -m legal_module.example
 ```
 
-This requires the optional dependency **python-docx**. Install it with:
+This requires the optional dependencies **python-docx** and **docx2pdf** for PDF export. Install them with:
 
 ```bash
-pip install python-docx
+pip install python-docx docx2pdf
 ```

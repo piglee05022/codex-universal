@@ -10,9 +10,12 @@ sample_case = {
     'evidence': [
         {'id': '乙1', 'summary': 'LINE對話紀錄，顯示告知車輛尚未交付'},
         {'id': '乙2', 'summary': '川立公司匯款憑證，顯示資金流向'}
+    ],
+    'attachments': [
+        {'id': '附件一', 'description': '車輛分期契約影本'},
     ]
 }
 
 if __name__ == '__main__':
-    create_filing(sample_case, '法律文書_起訴狀.docx')
-    print('Document generated: 法律文書_起訴狀.docx')
+    create_filing(sample_case, '法律文書_起訴狀.docx', pdf_path='法律文書_起訴狀.pdf')
+    print('Documents generated: 法律文書_起訴狀.docx, 法律文書_起訴狀.pdf')
