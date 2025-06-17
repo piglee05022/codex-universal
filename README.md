@@ -69,3 +69,13 @@ This requires the optional dependencies **python-docx** and **docx2pdf** for PDF
 ```bash
 pip install python-docx docx2pdf
 ```
+
+### Viewing generated documents
+
+The produced `.docx` and `.pdf` files can be opened in common office suites:
+
+- [Microsoft Office 365](https://www.microsoft.com/en-us/microsoft-365)
+- [WPS Office](https://www.wps.com)
+- [LibreOffice](https://www.libreoffice.org)
+
+Simply open the generated file with your preferred program and the formatting will be preserved.
