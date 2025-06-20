@@ -56,7 +56,15 @@ See [Dockerfile](Dockerfile) for the full details of installed packages.
 
 ## Legal document generator module
 
-This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_filing` function that accepts case information and outputs a formatted Word document.  When `docx2pdf` is available the file can also be exported to PDF.  Generated documents use **2.5&nbsp;cm margins**, **1.5&nbsp;line spacing**, and include an optional **附件** section for supporting materials.
+This repository includes a simple example module located in `legal_module/` that demonstrates how to generate Traditional Chinese legal filings using the `python-docx` package. The module exposes a `create_filing` function that accepts case information and outputs a formatted Word document.  When `docx2pdf` is available the file can also be exported to PDF. Generated documents use **2.5&nbsp;cm margins**, **1.5&nbsp;line spacing**, and include an optional **附件** section for supporting materials.
+
+### Features
+
+- Produce common filings such as **起訴狀**, **答辯狀**, **上訴狀**, **強制執行聲請狀**, and **補充說明狀**.
+- Output in Traditional Chinese using **標楷體 16pt** font.
+- Automatic paragraph numbering and formatting.
+- Evidence and attachment lists can be integrated directly into the document.
+- Export to **DOCX** and, when Microsoft Word is available, to **PDF** via `docx2pdf`.
 
 Example usage:
 
@@ -64,8 +72,28 @@ Example usage:
 python3 -m legal_module.example
 ```
 
+### Interactive menu
+
+The module also provides a simple CLI that lists available actions. Run:
+
+```bash
+python3 -m legal_module.cli
+```
+
+This will display a text menu where you can generate the sample filing or exit the program.
+
 This requires the optional dependencies **python-docx** and **docx2pdf** for PDF export. Install them with:
 
 ```bash
 pip install python-docx docx2pdf
 ```
+
+### Viewing generated documents
+
+The produced `.docx` and `.pdf` files can be opened in common office suites:
+
+- [Microsoft Office 365](https://www.microsoft.com/en-us/microsoft-365)
+- [WPS Office](https://www.wps.com)
+- [LibreOffice](https://www.libreoffice.org)
+
+Simply open the generated file with your preferred program and the formatting will be preserved.

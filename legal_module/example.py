@@ -17,5 +17,5 @@ sample_case = {
 }
 
 if __name__ == '__main__':
-    create_filing(sample_case, '法律文書_起訴狀.docx', pdf_path='法律文書_起訴狀.pdf')
-    print('Documents generated: 法律文書_起訴狀.docx, 法律文書_起訴狀.pdf')
+    create_filing(sample_case, '法律文書_起訴狀.docx')
+    print('Document generated: 法律文書_起訴狀.docx')

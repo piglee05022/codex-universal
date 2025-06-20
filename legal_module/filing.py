@@ -52,10 +52,15 @@ class LegalDocumentGenerator:
                 "docx2pdf is required for PDF export. Install it via 'pip install docx2pdf'."
             ) from exc
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            docx_path = Path(tmpdir) / "temp.docx"
-            self.doc.save(docx_path)
-            convert(str(docx_path), filepath)
+        try:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                docx_path = Path(tmpdir) / "temp.docx"
+                self.doc.save(docx_path)
+                convert(str(docx_path), filepath)
+        except NotImplementedError as exc:  # pragma: no cover - platform limitations
+            raise RuntimeError(
+                "PDF export via docx2pdf requires Microsoft Word and is not supported on this platform."
+            ) from exc
 
     # Internal helpers
     def _add_basic_info(self) -> None:
