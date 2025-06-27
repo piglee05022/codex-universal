@@ -69,3 +69,16 @@ This requires the optional dependencies **python-docx** and **docx2pdf** for PDF
 ```bash
 pip install python-docx docx2pdf
 ```
+
+## IP camera streaming example
+
+This repository also includes `ipcam_stream.py`, a small utility for viewing an IP camera feed with OpenCV.
+
+Usage:
+
+```bash
+pip install opencv-python
+python3 ipcam_stream.py rtsp://<camera_ip>/stream
+```
+
+Press `ESC` to stop the stream.
