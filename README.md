@@ -69,3 +69,14 @@ This requires the optional dependencies **python-docx** and **docx2pdf** for PDF
 ```bash
 pip install python-docx docx2pdf
 ```
+
+## Consulting server
+
+A simple Flask-based web interface is included in `consulting_server/`. It exposes a form at `/` allowing you to input case information and download the generated Word document.
+
+Run it with:
+
+```bash
+python3 consulting_server/app.py
+```
+
