@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>法律文書產製表單</title>
+  <style>
+    body { font-family: "標楷體", sans-serif; margin: 2em; }
+    textarea { width: 100%; height: 6em; }
+    input[type="text"] { width: 100%; }
+    .section { margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <h1>法律文書產製表單</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul style="color: red;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method="post">
+    <div class="section">
+      <label>案號</label><br>
+      <input type="text" name="case_number" required>
+    </div>
+    <div class="section">
+      <label>當事人</label><br>
+      <input type="text" name="parties" required>
+    </div>
+    <div class="section">
+      <label>法院</label><br>
+      <input type="text" name="court" required>
+    </div>
+    <div class="section">
+      <label>訴之聲明</label><br>
+      <textarea name="claims"></textarea>
+    </div>
+    <div class="section">
+      <label>事實與理由</label><br>
+      <textarea name="facts"></textarea>
+    </div>
+    <div class="section">
+      <label>法律依據 (每行一條)</label><br>
+      <textarea name="laws"></textarea>
+    </div>
+    <div class="section">
+      <label>證據 (JSON 格式)</label><br>
+      <textarea name="evidence" placeholder='[{"id": "乙1", "summary": "說明"}]'></textarea>
+    </div>
+    <div class="section">
+      <label>附件 (JSON 格式)</label><br>
+      <textarea name="attachments" placeholder='[{"id": "附件一", "description": "說明"}]'></textarea>
+    </div>
+    <button type="submit">產生文件</button>
+  </form>
+</body>
+</html>
